@@ -1,4 +1,4 @@
-admin paneli düzenlenicek
-soruların kontrol durumu ayarlanıcak
-scoreboard yapılacak
-ayarlar yapılacak
+admin paneli düzenlenicek\n
+soruların kontrol durumu ayarlanıcak\n
+scoreboard yapılacak\n
+ayarlar yapılacak\n
