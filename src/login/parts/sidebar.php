@@ -20,9 +20,9 @@
             </li>
         <?php endif?>
 
-        <!-- <li>
-            <a href="../ctf/scoreboard.php">Scoreboard</a>
-        </li> -->
+        <li>
+            <a href="../ctf/scoreboard.php">Skor tablosu</a>
+        </li>
         <li>
             <a href="phpPro/logout.php">Çıkış yap</a>
         </li>

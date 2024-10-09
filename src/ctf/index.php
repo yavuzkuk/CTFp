@@ -14,6 +14,7 @@
     $userData = GetUserInfo($_SESSION["id"]);
   }
 
+  $settings = GetSettings();
 
 ?>
 
@@ -25,7 +26,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Siber Vatan X Bilimtey</title>
+  <title><?php echo $settings["s_webTitle"]?></title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/jumbotron/">
 
@@ -37,11 +38,11 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
   
-  <link href="../ctfLogin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="../ctfLogin/css/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-  <link href="../ctfLogin/css/tooplate-kool-form-pack.css" rel="stylesheet">
+  <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -75,7 +76,7 @@
           <i class="bi-box"></i>
 
           <span>
-              Siber Vatan X Bilimtey
+              <?php echo $settings["s_webTitle"]?>
           </span>
       </a>
 
@@ -104,35 +105,43 @@
 
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">                
-    <div class="offcanvas-header">                    
-        <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    
-    <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
-        <nav>
-          <ul>
-            <?php if(!isset($_SESSION["login"])):?>
-              <li>
-                <a href="login.php">Giriş yap</a>
-              </li>
+  <div class="offcanvas-header">                    
+      <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  
+  <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
+      <nav>
+        <ul>
+          <?php if(!isset($_SESSION["login"])):?>
+            <li>
+              <a href="login.php">Giriş yap</a>
+            </li>
 
-              <li>
-                <a href="register.php">Hesap oluştur</a>
-              </li>
-            <?php else:?>    
-              <li>
-                <a href="index.php">Kurallar</a>
-              </li>
-              <li>
-                <a href="question.php">Sorular</a>
-              </li>
-              <li>
-                <a href="../login/phpPro/logout.php">Çıkış yap</a>
-              </li>
-            <?php endif?>
-          </ul>
-        </nav>
-    </div>
+            <li>
+              <a href="register.php">Hesap oluştur</a>
+            </li>
+          <?php else:?>    
+            <li>
+              <a href="index.php">Kurallar</a>
+            </li>
+            <li>
+              <a href="question.php">Sorular</a>
+            </li>
+          <?php if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1):?>
+            <li>
+              <a href="">Admin paneli</a>
+            </li>
+          <?php endif?>
+            <li>
+              <a href="scoreboard.php">Skor tablosu</a>
+            </li>
+            <li>
+              <a href="../login/phpPro/logout.php">Çıkış yap</a>
+            </li>
+          <?php endif?>
+        </ul>
+      </nav>
+  </div>
 </div>
 
 
@@ -210,10 +219,10 @@
 
 <!-- Bootstrap core JavaScript -->
 
-<script src="../ctfLogin/js/jquery.min.js"></script>
-<script src="../ctfLogin/js/bootstrap.bundle.min.js"></script>
-<script src="../ctfLogin/js/countdown.js"></script>
-<script src="../ctfLogin/js/init.js"></script>
+<script src="../login/js/jquery.min.js"></script>
+<script src="../login/js/bootstrap.bundle.min.js"></script>
+<script src="../login/js/countdown.js"></script>
+<script src="../login/js/init.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-iFp/4mTFDx4NfHUhKG6zr+29iR+oj/iB4jW0KDzZVNprTSc99IK7lNw5i5XGJh7Z" crossorigin="anonymous"></script>

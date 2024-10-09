@@ -12,9 +12,6 @@
 
   $userResults = GetUserAnswer($_SESSION["id"]);
 
-  echo "<pre>";
-  print_r($_SESSION);
-  echo"</pre>";
 
 ?>
 
@@ -146,9 +143,14 @@
             <li>
               <a href="question.php">Sorular</a>
             </li>
-            <!-- <li>
-              <a href="scoreboard.php">Scoreboard</a>
-            </li> -->
+          <?php if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1):?>
+            <li>
+              <a href="">Admin paneli</a>
+            </li>
+          <?php endif?>
+            <li>
+              <a href="scoreboard.php">Skor tablosu</a>
+            </li>
             <li>
               <a href="../login/phpPro/logout.php">Çıkış yap</a>
             </li>
@@ -247,10 +249,10 @@
 
 <script src="script/javascript.js"></script>
 
-<script src="../ctfLogin/js/jquery.min.js"></script>
-<script src="../ctfLogin/js/bootstrap.bundle.min.js"></script>
-<script src="../ctfLogin/js/countdown.js"></script>
-<script src="../ctfLogin/js/init.js"></script>
+<script src="../login/js/jquery.min.js"></script>
+<script src="../login/js/bootstrap.bundle.min.js"></script>
+<script src="../login/js/countdown.js"></script>
+<script src="../login/js/init.js"></script>
 
 
 
