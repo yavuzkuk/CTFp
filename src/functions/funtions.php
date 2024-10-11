@@ -258,10 +258,16 @@
         $stmt->execute([":id"=>$id]);
     }
 
-    function GetAllQuestionWithCategory(){
+    function GetAllQuestionWithCategory($sort){
         include "db.php";
 
-        $query = "SELECT * FROM question INNER JOIN category ON category.c_id = question.q_category ORDER BY category.c_id";
+        $query = "SELECT * FROM question INNER JOIN category ON category.c_id = question.q_category ORDER BY ";
+
+        if($sort == "Kategori"){
+            $query .= "category.c_id";
+        }else if($sort == "Puan"){
+            $query .= "question.q_score DESC";
+        }
 
         $stmt = $connect->prepare($query);
 
@@ -278,6 +284,28 @@
         $stmt = $connect->prepare($query);
 
         $stmt->execute([":qTitle"=>$qTitle,":qDesc"=>$qDesc,":qLink"=>$qLink,"qPassword"=>$qPass,":qCategory"=>$qCategory,"qScore"=>$qScore]);
+    }
+
+    function GetUserProfile($id){
+        include "db.php";
+
+        $query = "SELECT * FROM question INNER JOIN category ON question.q_category = category.c_id INNER JOIN solvedquestions ON question.q_id = solvedquestions.s_qid WHERE solvedquestions.s_uid = :id ORDER BY solvedquestions.s_date DESC";
+
+        $stmt = $connect->prepare($query);
+        
+        $stmt->execute([":id"=>$id]);
+
+        return $stmt->fetchAll();
+    }
+
+    function DeleteUser($id){
+        include "db.php";
+
+        $query = "DELETE FROM users WHERE u_id = :id";
+
+        $stmt = $connect->prepare($query);
+
+        $stmt->execute([":id"=>$id]);
     }
 
 ?>

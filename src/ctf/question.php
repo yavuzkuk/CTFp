@@ -68,9 +68,8 @@
 <div class="container">
   <div class="row justify-content-between">
     <div class="col-lg-12 col-12 d-flex align-items-center">
-      <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="../ctfLogin/">
+      <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="../index.php">
           <i class="bi-box"></i>
-
           <span>
             <?php echo $settings["s_webTitle"]?>
           </span>

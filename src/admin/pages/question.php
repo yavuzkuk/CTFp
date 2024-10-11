@@ -4,6 +4,9 @@
 
     session_start();
 
+    include "../partial/perm/permCheck.php";
+
+
     $settings = GetSettings();
 
     $numInfo = GetNumInfo();
@@ -12,7 +15,24 @@
 
     $top5s = Get5Question();
 
-    $questions = GetAllQuestionWithCategory();
+    $sorted;
+
+    if(isset($_GET["sort"])){
+        if($_GET["sort"] == "Kategori"){
+            $sorted = "Kategori";
+            $questions = GetAllQuestionWithCategory("Kategori");
+        }else if($_GET["sort"] == "Puan"){
+            $sorted = "Puan";
+            $questions = GetAllQuestionWithCategory("Puan");
+        }else{
+            header("Location:./question.php");
+            exit();
+        }
+    }else{
+        $sorted = "Kategori";
+        $questions = GetAllQuestionWithCategory("Kategori");
+    }
+
 
     $categories = GetCategory();
     
@@ -112,23 +132,36 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Sorular</h4>
+                                    <div style="">
+                                        Sırala
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination pagination-sm">
+                                                <li class="page-item"><a href="./question.php?sort=Kategori" class="page-link <?php echo $sorted == "Kategori" ? "active" : ""?>" href="#">Kategori</a></li>
+                                                <li class="page-item"><a href="./question.php?sort=Puan" class="page-link <?php echo $sorted == "Puan" ? "active" : ""?>" href="#">Puan</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                             <thead>
                                             <tr>
                                                 <th>Başlık</th>
+                                                <th>Açıklama</th>
                                                 <th>Kategori</th>
                                                 <th>Puan</th>
-                                                <th>Status</th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <?php foreach($questions as $question):?>
                                                 <tr>
-                                                <td><?php echo $question["q_title"]?></td>
-                                                <td><?php echo $question["c_name"]?></td>
-                                                <td><?php echo $question["q_desc"]?></td>
-                                                <td><label class="badge badge-danger"><?php echo $question["q_score"]?></label></td>
+                                                    <td><?php echo $question["q_title"]?></td>
+                                                    <td><?php echo $question["q_desc"]?></td>
+                                                    <td><?php echo $question["c_name"]?></td>
+                                                    <td><label class="badge badge-danger"><?php echo $question["q_score"]?></label></td>
+                                                    <td>
+                                                        <a href="" class="btn btn-primary"></a>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach?>
 

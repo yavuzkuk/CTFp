@@ -16,6 +16,8 @@
 
   $settings = GetSettings();
 
+  $scoreboard = GetScoreboard();
+
 
 ?>
 
@@ -130,7 +132,7 @@
             </li>
           <?php if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1):?>
             <li>
-              <a href="">Admin paneli</a>
+              <a href="../admin/">Admin paneli</a>
             </li>
           <?php endif?>
             <li>
@@ -158,7 +160,23 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
-        
+      <table class="table">
+            <thead style="color: white;">
+                <tr>
+                <th>Kullanıcı adı</th>
+                <th>Puan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php for ($i=0; $i < 10; $i++):?>
+                <tr>
+                    <td style="color: greenyellow;"><?php echo $scoreboard[$i][1]?></td>
+                    <td style="color: greenyellow;"> <?php echo $scoreboard[$i][0]?></td>
+                </tr>
+                <?php endfor?>
+
+            </tbody>
+        </table>
       </div>
     </div>
     

@@ -8,15 +8,17 @@
 
     $settings = GetSettings();
 
-    $numInfo = GetNumInfo();
 
     $userInfo = GetUserInfo($_SESSION["id"]);
 
-    $top5s = Get5Question();
+    $profileQuestions = GetUserProfile($_GET["id"]);
 
-    $categories = GetCategory();
+    $profileInfo = GetUserInfo($_GET["id"]);
 
-
+    if(empty($userInfo)){
+        header("Location:scoreboard.php");
+        exit();
+    }
 ?>
 
 
@@ -58,51 +60,51 @@
             <!-- partial:../../partials/_navbar.html -->
             <?php include "../partial/navbar.php"?>
             <!-- partial -->
-             
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <?php include "../partial/message.php"?>
                     <div class="page-header">
-                        <h3 class="page-title"> Kategori ekleme </h3>
+                        <h3 class="page-title" style="color: greenyellow;"><?php echo $profileInfo["u_username"]?></h3>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item">Form</li>
-                                <li class="breadcrumb-item active" aria-current="page">Kategori ekleme</li>
+                                <li class="breadcrumb-item" style="color: greenyellow;"><?php echo "Kayıt tarihi: ".$profileInfo["u_createdDate"]?></li>
                             </ol>
                         </nav>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 grid-margin stretch-card">
+                        
+                        <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <!--    <h4 class="card-title"></h4> -->
-                                    <form class="forms-sample" method="post" action="../phpPro/categoryPro.php">
-                                        <div class="form-group">
-                                            <label for="exampleInputUsername1">Kategori</label>
-                                            <input type="text" class="form-control" id="exampleInputUsername1" name="categoryName" placeholder="Kategori ismi">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary me-2">Ekle</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Kategoriler</h4>
-                                    <?php foreach($categories as $category):?>
-                                        <div class="form-group row">
-                                            <label for="exampleInputUsername2" class="col-sm-3 col-form-label"><?php echo $category["c_name"]?></label>
-                                            <div class="col-sm-9" style="text-align: center;">
-                                                <span style="margin-right: 15px;">
-                                                    Soru sayısı : <?php echo GetCategoryNumber($category["c_id"])["number"]?>
-                                                </span>
-                                                <a href="../phpPro/deleteCategory.php?id=<?php echo $category["c_id"]?>" type="button" class="ml-5 btn btn-outline-danger btn-icon-text">
-                                                    <i class="mdi mdi-delete btn-icon-prepend"></i> Sil
-                                                </a>
-                                            </div>
-                                        </div>
-                                    <?php endforeach?>
+                                    <h4 class="card-title"></h4>
+                                    <div class="table-responsive">
+                                        <?php if(count($profileQuestions) != 0):?>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Başlık</th>
+                                                    <th>Açıklama</th>
+                                                    <th>Kategori</th>
+                                                    <th>Zaman</th>
+                                                    <th>Puan</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php foreach($profileQuestions as $question):?>
+                                                    <tr>
+                                                        <td><?php echo $question["q_title"]?></td>
+                                                        <td><?php echo $question["q_desc"]?></td>
+                                                        <td><?php echo $question["c_name"]?></td>
+                                                        <td><?php echo $question["s_date"]?></td>
+                                                        <td><label class="badge badge-danger"><?php echo $question["q_score"]?></label></td>
+                                                    </tr>
+                                                <?php endforeach?>
+
+                                                </tbody>
+                                            </table>
+                                        <?php else:?>
+                                            Soru çözülmemiş
+                                        <?php endif?>
+                                    </div>
                                 </div>
                             </div>
                         </div>

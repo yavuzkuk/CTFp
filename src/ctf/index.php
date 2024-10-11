@@ -15,7 +15,6 @@
   }
 
   $settings = GetSettings();
-
 ?>
 
 
@@ -72,9 +71,8 @@
 <div class="container">
   <div class="row justify-content-between">
     <div class="col-lg-12 col-12 d-flex align-items-center">
-      <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="../ctfLogin/">
+      <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="../index.php">
           <i class="bi-box"></i>
-
           <span>
               <?php echo $settings["s_webTitle"]?>
           </span>
@@ -82,14 +80,36 @@
 
       <ul class="social-icon d-flex justify-content-center align-items-center mx-auto">
         <span class="text-white me-4 d-none d-lg-block">Stay connected</span>
+        <?php if(isset($settings["s_instagram"]) && !empty($settings["s_instagram"])):?>
+          <li class="social-icon-item">
+              <a href="<?php echo $settings["s_instagram"]?>" class="social-icon-link bi-instagram"></a>
+          </li>
+        <?php endif?>
 
-        <li class="social-icon-item">
-            <a href="https://www.instagram.com/siber_vatan" class="social-icon-link bi-instagram"></a>
-        </li>
+        <?php if(isset($settings["s_twitter"]) && !empty($settings["s_twitter"])):?>
+          <li class="social-icon-item">
+              <a href="<?php echo $settings["s_twitter"]?>" class="social-icon-link bi-twitter"></a>
+          </li>
+        <?php endif?>
 
-        <li class="social-icon-item">
-            <a href="https://twitter.com/siber_vatan" class="social-icon-link bi-twitter"></a>
-        </li>
+        <?php if(isset($settings["s_linkedin"]) && !empty($settings["s_linkedin"])):?>
+          <li class="social-icon-item">
+              <a href="<?php echo $settings["s_linkedin"]?>" class="social-icon-link bi-linkedin"></a>
+          </li>
+        <?php endif?>
+
+        <?php if(isset($settings["s_whatsapp"]) && !empty($settings["s_whatsapp"])):?>
+          <li class="social-icon-item">
+              <a href="<?php echo $settings["s_whatsapp"]?>" class="social-icon-link bi-whatsapp"></a>
+          </li>
+        <?php endif?>
+
+        <?php if(isset($settings["s_telegram"]) && !empty($settings["s_telegram"])):?>
+          <li class="social-icon-item">
+              <a href="<?php echo $settings["s_telegram"]?>" class="social-icon-link bi-telegram"></a>
+          </li>
+        <?php endif?>
+
       </ul>
       <?php if(isset($_SESSION["login"])):?>
         <span style="color: white;">Hoşgeldin <?php echo $userData["u_username"]?></span>
@@ -129,7 +149,7 @@
             </li>
           <?php if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == 1):?>
             <li>
-              <a href="">Admin paneli</a>
+              <a href="../admin/">Admin paneli</a>
             </li>
           <?php endif?>
             <li>

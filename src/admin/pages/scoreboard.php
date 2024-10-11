@@ -1,9 +1,10 @@
 <?php
 
+  include "../../functions/funtions.php";
 
   session_start();
 
-  include "../../functions/funtions.php";
+  include "../partial/perm/permCheck.php";
 
   $userInfo = GetUserInfo($_SESSION["id"]);
 
@@ -11,7 +12,7 @@
 
   $scoreboard = GetScoreboard();
 
-
+  $pagination = floor(count($scoreboard) / 10) + (count($scoreboard) % 10 > 0 ? 1 : 0);
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +45,7 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
+            <?php include "../partial/message.php"?>
             <div class="page-header">
               <h3 class="page-title"> Scoreboard </h3>
               <nav aria-label="breadcrumb">
@@ -65,8 +67,8 @@
                           <tr>
                             <th>ID</th>
                             <th>Kullanıcı</th>
-                            <th>Sale</th>
-                            <th>Status</th>
+                            <th>Puan</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -74,8 +76,12 @@
                             <tr>
                               <td><?php echo $score[2]?></td>
                               <td><?php echo $score[1]?></td>
-                              <td class="text-danger"> <?php echo $score[0]?> <i class="mdi mdi-arrow-down"></i></td>
-                              <td><label class="badge badge-danger">Pending</label></td>
+                              <td style="color: greenyellow;"> <?php echo $score[0]?></td>
+                              <td>
+                                <a href="profile.php?id=<?php echo $score[2]?>" class="btn btn-inverse-warning">İncele</a>
+                                <a href="../phpPro/deleteProfile.php?id=<?php echo $score[2]?>" class="btn btn-inverse-danger">Sil</a>
+
+                              </td>
                             </tr>
                           <?php endforeach?>
 
